@@ -7,12 +7,14 @@ LTOCFIFLAGS=$(CFLAGS) -fvisibility=hidden -flto -fsanitize=cfi-icall -fno-saniti
 MYCFIFLAGS=$(CFLAGS)
 KCFIFLAGS=$(CFLAGS) -fsanitize=kcfi
 
-all: kcfi
+all: kcfi mycfi
 kcfi: greet.c
 	$(CC) $(KCFIFLAGS) -o $@-greet.exe $<
 mycfi: greet.c
-	$(CC) $(MYCFIFLAGS) -S -emit-llvm -o $@-greet.ll $<
-	$(OPT) -passes=$@ -o $@-greet.bc $@-greet.ll
-	$(CC) $(MYCFIFLAGS) -o $@-greet.exe $@-greet.bc
+	$(CC) $(MYCFIFLAGS) -o $@-greet.exe $<
+mycfi-debug: greet.c
+	#$(CC) $(MYCFIFLAGS) -S -emit-llvm -o $@-greet.ll $<
+	#$(OPT) -passes=$@ -o $@-greet.bc $@-greet.ll
+	#$(CC) $(MYCFIFLAGS) -o $@-greet.exe $@-greet.bc
 clean:
 	rm $(wildcard *.exe) $(wildcard *.ll) $(wildcard *.bc) $(wildcard *.o)
