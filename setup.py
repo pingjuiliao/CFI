@@ -3,7 +3,7 @@ import os
 import multiprocessing
 
 LLVM_ROOT = "./llvm"
-nproc = multiprocessing.cpu_count() / 2
+nproc = multiprocessing.cpu_count() // 2
 
 pwd = "."
 def error(msg) :
@@ -37,7 +37,7 @@ def build_llvm() :
                 -DLLVM_BUILD_EXAMPLES=Off \
                 -DLLVM_BUILD_DOCS=Off \
                 -DLLVM_INCLUDE_EXAMPLES=Off \
-                -DLLVM_ENABLE_LTO=On \
+                -DLLVM_ENABLE_LTO=Off \
                 -DLLVM_ENABLE_DOXYGEN=Off \
                 -DLLVM_ENABLE_RTTI=Off \
                 -G "Unix Makefiles" ../llvm""")

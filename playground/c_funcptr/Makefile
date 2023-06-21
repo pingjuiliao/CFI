@@ -12,7 +12,7 @@ kcfi: greet.c
 	$(CC) $(KCFIFLAGS) -o $@-greet.exe $<
 mycfi: greet.c
 	$(CC) $(MYCFIFLAGS) -S -emit-llvm -o $@-greet.ll $<
-	$(OPT) -passes=$@ $@-greet.bc $@-greet.ll
+	$(OPT) -passes=$@ -o $@-greet.bc $@-greet.ll
 	$(CC) $(MYCFIFLAGS) -o $@-greet.exe $@-greet.bc
 clean:
 	rm $(wildcard *.exe) $(wildcard *.ll) $(wildcard *.bc) $(wildcard *.o)
